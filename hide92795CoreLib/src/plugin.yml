@@ -1,0 +1,5 @@
+name: hide92795CoreLib
+main: hide92795.bukkit.plugin.corelib.CoreLib
+version: 1.5.2_1
+description: Core Liblary for my plugins.
+author: hide92795

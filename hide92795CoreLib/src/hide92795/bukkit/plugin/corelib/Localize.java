@@ -32,6 +32,6 @@ public class Localize {
 	}
 
 	public String getString(Localizable path) {
-		return CoreLib.getCoreLib(plugin).getTool().replaceThings(config.getString(path.getName()));
+		return CoreLib.getCoreLib().getTool().replaceThings(config.getString(path.getName()));
 	}
 }

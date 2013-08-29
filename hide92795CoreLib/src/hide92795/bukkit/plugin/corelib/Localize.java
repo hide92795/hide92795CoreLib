@@ -3,7 +3,6 @@ package hide92795.bukkit.plugin.corelib;
 import java.io.File;
 import java.io.InputStream;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Localize {
@@ -18,12 +17,12 @@ public class Localize {
 	public void reload(String lang) throws Exception {
 		configFile = new File(plugin.getDataFolder(), lang + ".yml");
 
-		config = YamlConfiguration.loadConfiguration(configFile);
+		config = LanguageConfiguration.loadConfiguration(configFile);
 		config.options().copyDefaults(true);
 
 		InputStream defConfigStream = plugin.getResource("jp.yml");
 		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			LanguageConfiguration defConfig = LanguageConfiguration.loadConfiguration(defConfigStream);
 			config.setDefaults(defConfig);
 
 		}

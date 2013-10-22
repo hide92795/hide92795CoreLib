@@ -25,18 +25,25 @@ public class Localize {
 		config = LanguageConfiguration.loadConfiguration(configFile);
 		config.options().copyDefaults(true);
 
-		InputStream defConfigStream = plugin.getResource(default_lang + ".yml");
-		if (defConfigStream != null) {
-			LanguageConfiguration defConfig = LanguageConfiguration.loadConfiguration(defConfigStream);
-			config.setDefaults(defConfig);
-		} else {
-			plugin.getLogger().warning("Can't load Default laungage.");
+		try (InputStream inJarConfigStream = plugin.getResource(lang + ".yml")) {
+			if (inJarConfigStream != null) {
+				LanguageConfiguration inJarConfig = LanguageConfiguration.loadConfiguration(inJarConfigStream);
+				config.setDefaults(inJarConfig);
+			} else {
+				try (InputStream defConfigStream = plugin.getResource(default_lang + ".yml")) {
+					if (defConfigStream != null) {
+						LanguageConfiguration defConfig = LanguageConfiguration.loadConfiguration(defConfigStream);
+						config.setDefaults(defConfig);
+					} else {
+						plugin.getLogger().warning("Can't load Default laungage.");
+					}
+				}
+			}
 		}
-
 		config.save(configFile);
 	}
 
 	public String getString(Localizable path) {
-		return ChatColor.translateAlternateColorCodes('$', config.getString(path.getName()));
+		return ChatColor.translateAlternateColorCodes('&', config.getString(path.getName()));
 	}
 }
